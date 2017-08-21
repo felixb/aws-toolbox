@@ -13,7 +13,7 @@ ENV \
     NODE_VERSION=6.x
 
 RUN apt-get update \
- && apt-get install -y awscli ruby ruby-dev gcc make curl tree vim groff \
+ && apt-get install -y awscli ruby ruby-dev gcc make git curl tree vim groff \
  && rm -rf /var/lib/apt/* /var/cache/apt/*
 
 RUN gem install -v ${AUTOSTACKER_VERSION} autostacker24
