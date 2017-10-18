@@ -52,7 +52,7 @@ Mappings:
     eu-west-1:
       HostAmi: ami-70edb016
     eu-central-1:
-      HostAmi: ami-5b06d634
+      HostAmi: ami-c7ee5ca8
 
 #============================================================
 # Resources
@@ -237,7 +237,7 @@ Resources:
     Properties:
       IamInstanceProfile: !Ref ApplicationHostInstanceProfile
       ImageId: !FindInMap [Region, !Ref "AWS::Region", HostAmi]
-      InstanceType: t2.micro
+      InstanceType: t2.nano
       SecurityGroupIds: [!Ref ApplicationHostSecurityGroup]
       SubnetId: !Ref ApplicationPrivateSubnet
       Tags:
@@ -247,10 +247,10 @@ Resources:
         "Fn::Base64":
           !Sub |
             #!/bin/bash -xe
-            # Install the SSM agent.
+            # Install the SSM agent is no more needed if using an actual image.
             cd /tmp
-            curl https://amazon-ssm-${AWS::Region}.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm -o amazon-ssm-agent.rpm
-            sudo yum install -y amazon-ssm-agent.rpm
+            # curl https://amazon-ssm-${AWS::Region}.s3.amazonaws.com/latest/linux_amd64/amazon-ssm-agent.rpm -o amazon-ssm-agent.rpm
+            # sudo yum install -y amazon-ssm-agent.rpm
 
 #============================================================
 # S3 Bucket
@@ -346,9 +346,9 @@ Resources:
 # Outputs
 #============================================================
 Outputs:
-  ApplicationHostInstance:
-    Description: Application host ID
-    Value: !Ref ApplicationHostInstance
+#  ApplicationHostInstance:
+#    Description: Application host ID
+#    Value: !Ref ApplicationHostInstance
 
   S3Bucket:
     Description: Bucket used for SSM logging
