@@ -47,6 +47,7 @@ done
 # fetch session token
 credentials=$(aws sts get-session-token \
         --duration-seconds "${DURATION_SECONDS}" \
+        --output json \
     | grep \
         -e 'SecretAccessKey' \
         -e 'SessionToken' \
